@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clicking Speed Calculator</title>
+    <title>Clicking Speed</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -162,7 +162,10 @@
     </style>
 </head>
 <body>
-    <h1>Clicking Speed Calculator</h1>
+    <hr>
+    <h1><A href="https://bis-ace.github.io/Click-Speed/">Clicking Speed</h1>
+    <p>Check Your Clicking Speed</p>
+    <hr>  
     <p>Click the box below as many times as you can within the timer period.</p>
     <div id="timer">10</div>
     <div id="clickArea">
@@ -234,7 +237,7 @@
         function endGame() {
             gameRunning = false;
             clearInterval(timerInterval); // Stop the timer
-            clickArea.textContent = 'Click Me!';
+            clickArea.textContent = '';
             startButton.style.display = 'block'; // Show the start button
             resetButton.style.display = 'block'; // Show the reset button
             const elapsedTime = gameDuration; // Total time in seconds
