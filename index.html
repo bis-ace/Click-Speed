@@ -45,7 +45,7 @@
             0% {
                 transform: scale(1);
                 background: linear-gradient(145deg, #ffffff, #f0f8ff);
-            }
+           }
             50% {
                 transform: scale(0.95);
                 background: linear-gradient(145deg, #d0e0f0, #e0f0f8);
@@ -69,7 +69,7 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: #28a745; /* Green */
+            background-color: #28a745; /* black */
         }
         #resetButton {
             margin-top: 20px;
@@ -87,7 +87,7 @@
             transform: scale(1.1);
         }
         #startButton:hover, #resetButton:hover {
-            background-color: #007bff; /* Blue for hover effect */
+            background-color: #007bff; /* Black for hover effect */
             transform: scale(1.1);
         }
         #timer {
@@ -162,16 +162,13 @@
     </style>
 </head>
 <body>
-    <hr>
-    <h1><A href="https://bis-ace.github.io/Click-Speed/">Clicking Speed</h1>
-    <p>Check Your Clicking Speed</p>
-    <hr>  
-    <p>Click the box below as many times as you can within the timer period.</p>
+    <h1><A href="https://bis-ace.github.io/Click-Speed/"><img src="logo for click speed.png "></A></h1>
     <div id="timer">10</div>
     <div id="clickArea">
         <div id="startButton">Start</div>
     </div>
     <div id="results">
+<p>Click the box upper as many times as you can within the timer period by press start button.</p>
         <p>Total Clicks: <span id="clickCount">0</span></p>
         <p>Clicks Per Second: <span id="clickRate">0</span></p>
         <p id="grade">Grade: Not Yet Rated</p>
@@ -180,6 +177,8 @@
         <button class="timerButton" data-time="5">5 Seconds</button>
         <button class="timerButton" data-time="10">10 Seconds</button>
         <button class="timerButton" data-time="15">15 Seconds</button>
+        <button class="timerButton" data-time="30">30 Seconds</button>
+        <button class="timerButton" data-time="60">1 minute</button>
     </div>
     <button id="resetButton">Reset</button>
 
