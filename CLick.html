@@ -36,16 +36,33 @@
             cursor: pointer;
             background: linear-gradient(145deg, #ffffff, #f0f8ff);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden; /* Important for ripple effect */
             transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
         #clickArea.clicked {
             animation: clickAnimation 0.2s ease-out;
         }
+        .ripple {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: grey;
+            opacity: 0.6;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: rippleEffect 0.6s ease-out;
+        }
+        @keyframes rippleEffect {
+            to {
+                transform: scale(10);
+                opacity: 0;
+            }
+        }
         @keyframes clickAnimation {
             0% {
                 transform: scale(1);
                 background: linear-gradient(145deg, #ffffff, #f0f8ff);
-           }
+            }
             50% {
                 transform: scale(0.95);
                 background: linear-gradient(145deg, #d0e0f0, #e0f0f8);
@@ -162,13 +179,13 @@
     </style>
 </head>
 <body>
-    <h1><A href="https://bis-ace.github.io/Click-Speed/"><img src="logo for click speed.png "></A></h1>
+    <h1><a href="https://bis-ace.github.io/Click-Speed/"><img src="logo for click speed.png" alt="Click Speed Logo"></a></h1>
     <div id="timer">10</div>
     <div id="clickArea">
         <div id="startButton">Start</div>
     </div>
     <div id="results">
-<p>Click the box upper as many times as you can within the timer period by press start button.</p>
+        <p>Click the box above as many times as you can within the timer period by pressing the start button.</p>
         <p>Total Clicks: <span id="clickCount">0</span></p>
         <p>Clicks Per Second: <span id="clickRate">0</span></p>
         <p id="grade">Grade: Not Yet Rated</p>
@@ -217,7 +234,7 @@
             gradeDisplay.textContent = 'Grade: Not Yet Rated'; // Reset grade display
             gameRunning = true;
             startTime = Date.now();
-            endTime = startTime + gameDuration * 1000; // Duration in secondss
+            endTime = startTime + gameDuration * 1000; // Duration in seconds
             startButton.style.display = 'none'; // Hide the start button
             resetButton.style.display = 'none'; // Hide the reset button
             timerInterval = setInterval(updateTimer, 1000); // Update timer every second
@@ -225,83 +242,94 @@
 
         function updateTimer() {
             const currentTime = Date.now();
-            const timeLeft = Math.max(0, Math.ceil((endTime - currentTime) / 1000));
-            timerDisplay.textContent = timeLeft;
-            if (timeLeft === 0) {
+            const timeLeft = Math.round((endTime - currentTime) / 1000); // Convert to seconds
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
                 endGame();
+            } else {
+                timerDisplay.textContent = timeLeft;
             }
         }
 
         function endGame() {
             gameRunning = false;
-            clearInterval(timerInterval); // Stop the timer
-            clickArea.textContent = '';
-            startButton.style.display = 'block'; // Show the start button
-            resetButton.style.display = 'block'; // Show the reset button
-            const elapsedTime = gameDuration; // Total time in seconds
-            const clicksPerSecond = (clickCount / elapsedTime).toFixed(2);
-            clickRateDisplay.textContent = clicksPerSecond;
-            gradeDisplay.textContent = getGrade(clicksPerSecond);
-            showGradeModal(getGrade(clicksPerSecond)); // Show modal with grade
+            const elapsedSeconds = (Date.now() - startTime) / 1000;
+            const clickRate = (clickCount / elapsedSeconds).toFixed(2);
+            clickRateDisplay.textContent = clickRate;
+            startButton.style.display = 'block'; // Show the start button again
+            resetButton.style.display = 'block'; // Show the reset button again
+            showGrade(clickRate);
         }
 
-        function getGrade(cps) {
-            if (cps >= 5) return 'Excellent';
-            if (cps >= 3) return 'Good';
-            if (cps >= 1.5) return 'Average';
-            return 'Needs Improvement';
-        }
-
-        function showGradeModal(grade) {
-            modalMessage.textContent = `Congratulations! You achieved a grade of ${grade}.`;
+        function showGrade(clickRate) {
+            let grade;
+            if (clickRate >= 10) {
+                grade = 'Excellent';
+            } else if (clickRate >= 5) {
+                grade = 'Good';
+            } else if (clickRate >= 3) {
+                grade = 'Average';
+            } else {
+                grade = 'Below Average';
+            }
+            gradeDisplay.textContent = `Grade: ${grade}`;
+            modalMessage.textContent = `Congratulations! You achieved a ${grade} grade.`;
+            modal.style.display = 'flex';
             document.getElementById('gradeContent').classList.add('show');
-            modal.style.display = 'flex'; // Show the modal
         }
 
-        function closeGradeModal() {
-            modal.style.display = 'none'; // Hide the modal
-            document.getElementById('gradeContent').classList.remove('show');
+        clickArea.addEventListener('click', (event) => {
+            if (gameRunning) {
+                clickCount++;
+                clickCountDisplay.textContent = clickCount;
+                animateClick(event);
+            }
+        });
+
+        function animateClick(event) {
+            clickArea.classList.add('clicked');
+            setTimeout(() => clickArea.classList.remove('clicked'), 200);
+
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            const rect = clickArea.getBoundingClientRect();
+            ripple.style.left = `${event.clientX - rect.left - 10}px`;
+            ripple.style.top = `${event.clientY - rect.top - 10}px`;
+            clickArea.appendChild(ripple);
+
+            ripple.addEventListener('animationend', () => {
+                ripple.remove();
+            });
         }
 
-        function resetGame() {
-            clearInterval(timerInterval); // Stop the timer if it's running
+        startButton.addEventListener('click', startGame);
+
+        resetButton.addEventListener('click', () => {
             clickCount = 0;
             clickCountDisplay.textContent = clickCount;
             clickRateDisplay.textContent = '0';
             timerDisplay.textContent = gameDuration; // Reset timer display
             gradeDisplay.textContent = 'Grade: Not Yet Rated'; // Reset grade display
-            gameRunning = false;
-            startButton.style.display = 'block'; // Show the start button
-            resetButton.style.display = 'none'; // Hide the reset button
-            clickArea.textContent = 'Click Me!';
-            startGame(); // Automatically restart the game
-        }
-
-        clickArea.addEventListener('click', () => {
-            if (!gameRunning) return;
-            clickCount++;
-            clickCountDisplay.textContent = clickCount;
-            clickArea.classList.add('clicked');
-            setTimeout(() => clickArea.classList.remove('clicked'), 200); // Remove class after animation
+            startButton.style.display = 'block';
+            resetButton.style.display = 'none';
         });
 
-        startButton.addEventListener('click', startGame);
-        resetButton.addEventListener('click', resetGame);
-
         document.querySelectorAll('.timerButton').forEach(button => {
-            button.addEventListener('click', () => {
-                gameDuration = parseInt(button.getAttribute('data-time'));
+            button.addEventListener('click', (event) => {
+                gameDuration = parseInt(event.target.getAttribute('data-time'));
                 timerDisplay.textContent = gameDuration; // Update timer display
-                resetGame(); // Restart the game with the selected duration
             });
         });
 
-        gradeClose.addEventListener('click', closeGradeModal); // Close modal when X is clicked
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeGradeModal(); // Close modal if clicked outside
-            }
+        gradeClose.addEventListener('click', () => {
+            modal.style.display = 'none';
         });
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
