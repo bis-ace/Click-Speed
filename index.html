@@ -1,37 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>_bis_ace</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background-color: #f0f0f0;
-            color: #333;
             text-align: center;
-            padding: 100px;
+            padding: 50px;
+            position: relative;
         }
 
-        h1 {
-            font-size: 2.5em;
-            color: #3498db;
+        .Logo {
             margin-bottom: 20px;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .links {
-            font-size: 1.2em;
-            margin-bottom: 30px;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            margin: 50px 0;
         }
 
         a {
@@ -41,37 +25,66 @@
             border: 2px solid #2980b9;
             padding: 10px 20px;
             border-radius: 10px;
-            transition: all 0.3s ease;
             background: black;
+            transition: all 0.3s ease;
+            display: inline-block;
         }
 
         a:hover {
             background-color: #2980b9;
             color: #fff;
-            transform: scale(1.1);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        img {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+        }
+
+        /* Resizing social media logos to a smaller size */
+        .social-logo {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Top-right container for social media icons */
+        .social-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .social-link {
+            margin: 0 5px;
+            padding: 0%;
         }
     </style>
 </head>
-    <h1><a href="https://bis-ace.github.io/Click-Speed/"><img src="limits_logo.png" alt="Click Speed Logo" height=100px width=100px></a></h1>
-    <body>
-        <p>
-        </p>
-    <p>Check out:</p>
-    <ul>
-        <li><a href="CLick" target="_blank">CPS</a></li>
-        <li></li><li></li><li></li><li></li>
-        <li><a href="WifiSpeedTester" target="_blank">k/Mbps</a></li>
-    </ul>
-   <p class=links>
-    <A href=https://www.instagram.com/_bis_ace/><img src="insta small.png"></A>
-   </p>
-        <p class =links>
-<A href=https://www.youtube.com/@itsforyou20><img src="youtube small.png"></A>
-    </p>
-        </body>
-    </html>
+
+<body>
+    <div class="Logo">
+        <a href="https://bis-ace.github.io/Click-Speed/" target="_blank">
+            <img src="limits_logo.png" alt="Click Speed Logo">
+        </a>
+    </div>
+
+    <h2>Check out:</h2>
+
+    <div>
+        <a href="https://bis-ace.github.io/Click-Speed/" target="_blank">CPS</a>
+        <a href="https://bis-ace.github.io/WifiSpeedTester/" target="_blank">k/Mbps</a>
+    </div>
+
+    <!-- Social media icons in top-right corner -->
+    <div class="social-container">
+        <a href="https://www.instagram.com/_bis_ace" target="_blank" class="social-link">
+            <img src="insta_small.png" alt="Instagram Logo" class="social-logo">
+        </a>
+        <a href="https://www.youtube.com/@itsforyou20" target="_blank" class="social-link">
+            <img src="youtube_small.png" alt="YouTube Logo" class="social-logo">
+        </a>
+    </div>
+
+</body>
+
+</html>
