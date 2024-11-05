@@ -1,89 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>_bis_ace</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #000000
-            background-size: cover;
-            background-position: center top;   
-            text-align: center;
-            padding: 50px;
-            position: relative;
-        }
-
-        .Logo {
-            margin-bottom: 20px;
-        }
-
-        a {
-            text-decoration: none;
-            font-size: 1.5em;
-            color: #2980b9;
-            border: 2px solid #2980b9;
-            padding: 10px 20px;
-            border-radius: 10px;
-            background: black;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        a:hover {
-            background-color: #2980b9;
-            color: #fff;
-        }
-
-        img {
-            width: 100px;
-            height: 100px;
-            margin: 10px;
-        }
-
-        .social-logo {
-            width: 20px;
-            height: 20px;
-        }
-
-        .social-container {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
-        .social-link {
-            margin: 0 5px;
-            padding: 0%;
-        }
-    </style>
+    <title>Texting AI Chatbot</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div class="Logo">
-        <a href="https://bis-ace.github.io/Click-Speed/" target="_blank">
-            <img src="limits_logo.png" alt="Click Speed Logo">
-        </a>
+    <div class="container">
+        <h1>Texting AI</h1>
+        <div id="chatbox" class="chatbox"></div>
+        <div id="typingIndicator" class="typing-indicator" style="display:none;">AI is typing...</div>
+        <input type="text" id="userInput" placeholder="Share your feelings or problems..." />
+        <button id="sendBtn">Send</button>
     </div>
-
-    <h2>Check out:</h2>
-
-    <div>
-        <a href="https://bis-ace.github.io/Click-Speed/CLick.html" target="_blank">CPS</a>
-        <a href="https://bis-ace.github.io/Click-Speed/WifiSpeedTester.html" target="_blank">k/Mbps</a>
-    </div>
-
-    <div class="social-container">
-        <a href="https://www.instagram.com/_bis_ace" target="_blank" class="social-link">
-            <img src="insta_small.png" alt="Instagram Logo" class="social-logo">
-        </a>
-        <a href="https://www.youtube.com/@itsforyou20" target="_blank" class="social-link">
-            <img src="youtube_small.png" alt="YouTube Logo" class="social-logo">
-        </a>
-    </div>
-
+    <script src="script.js"></script>
 </body>
-
 </html>
